@@ -38,10 +38,8 @@ containers:
     - name: metrics
       containerPort: 24231
       protocol: TCP
-    {{- range $port := .Values.service.ports }}
-    - name: {{ $port.name }}
-      containerPort: {{ $port.containerPort }}
-      protocol: {{ $port.protocol }}
+    {{- if .Values.extraPorts }}
+      {{- toYaml .Values.extraPorts | nindent 6 }}
     {{- end }}
     livenessProbe:
       {{- toYaml .Values.livenessProbe | nindent 6 }}

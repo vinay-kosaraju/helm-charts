@@ -58,11 +58,7 @@ containers:
         containerPort: 2020
         protocol: TCP
     {{- if .Values.extraPorts }}
-      {{- range .Values.extraPorts }}
-      - name: {{ .name }}
-        containerPort: {{ .containerPort }}
-        protocol: {{ .protocol }}
-      {{- end }}
+      {{- toYaml .Values.extraPorts | nindent 6 }}
     {{- end }}
     livenessProbe:
       {{- toYaml .Values.livenessProbe | nindent 6 }}
